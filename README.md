@@ -1,3 +1,3 @@
-# Example Subgraph
+# Ren protocol Subgraph
 
-An example to help you get started with The Graph. For more information see the docs on https://thegraph.com/docs/.
+Subgraph that indexes events on Ren Smart Contract
