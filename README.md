@@ -2,7 +2,7 @@
 
 RenVM, an open protocol providing access to inter-blockchain liquidity for all decentralized applications. Brings BTC, BCH and ZEC to any Ethereum app.
 
-# Networks and Performance
+## Networks and Performance
 This subgraph can be used for Ren on mainnet, and all testnets. In order to run it for a testnet, the subgraph.yaml file will need to have the contract addresses changed to point to the correct address for each respective network.
 
 ## Brief Description of The Graph Node Setup
