@@ -1,6 +1,25 @@
-type Gravatar @entity {
+type User @entity {
   id: ID!
-  owner: Bytes!
-  displayName: String!
-  imageUrl: String!
+  address: String!
+  balance: BigInt!
+  transactionCount: Int!
+}
+
+type UserCounter @entity {
+  id: ID!
+  count: Int!
+}
+
+
+type TransferCounter @entity {
+  id: ID!
+  count: Int!
+  totalTransferred: BigInt!
+}
+
+type TotalSupply @entity {
+  id: ID!
+  supply: BigInt!
+  minted: BigInt!
+  burned: BigInt!
 }
