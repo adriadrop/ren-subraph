@@ -2,13 +2,13 @@ specVersion: 0.0.2
 description: Ren for Ethereum
 repository: https://github.com/adriadrop/ren-subraph
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: ethereum/contract
     name: Ren
     network: mainnet
     source:
-      address: '0x408e41876cCCDC0F92210600ef50372656052a38'
+      address: "0x408e41876cCCDC0F92210600ef50372656052a38"
       abi: Ren
       startBlock: 4827494
     mapping:
@@ -20,13 +20,10 @@ dataSources:
         - UserCounter
         - TransferCounter
         - TotalSupply
-        - Burn
       abis:
         - name: Ren
-          file: ./abis/Ren.json
+          file: Ren/abis/Ren.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-        - event: Burn(indexed address,uint256)
-          handler: handleBurn
-      file: ./src/mapping.ts
+      file: Ren/Ren.wasm

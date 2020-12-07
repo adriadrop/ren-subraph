@@ -3,47 +3,11 @@ import {
   User,
   UserCounter,
   TransferCounter,
-  TotalSupply
+  TotalSupply,
+  Burn
 } from '../generated/schema'
 import { BigInt } from '@graphprotocol/graph-ts'
 
-export function handleBurn(event: Burn): void {
-  let day = (event.block.timestamp / BigInt.fromI32(60 * 60 * 24))
-  let minter = Minter.load(event.params.burner.toHex())
-  if (minter == null) {
-    minter = new Minter(event.params.burner.toHex())
-    minter.address = event.params.burner.toHex()
-    minter.totalMinted = BigInt.fromI32(0)
-    minter.totalBurned = BigInt.fromI32(0)
-
-    // MinterCounter
-    let minterCounter = MinterCounter.load('singleton')
-    if (minterCounter == null) {
-      minterCounter = new MinterCounter('singleton')
-      minterCounter.count = 1
-    } else {
-      minterCounter.count = minterCounter.count + 1
-    }
-    minterCounter.save()
-    minterCounter.id = day.toString()
-    minterCounter.save()
-  }
-  minter.totalBurned = minter.totalBurned + event.params.amount
-  minter.save()
-
-  let totalSupply = TotalSupply.load('singleton')
-  if (totalSupply == null) {
-    totalSupply = new TotalSupply('singleton')
-    totalSupply.supply = BigInt.fromI32(0)
-    totalSupply.minted = BigInt.fromI32(0)
-    totalSupply.burned = BigInt.fromI32(0)
-  }
-  totalSupply.supply = totalSupply.supply - event.params.amount
-  totalSupply.burned = totalSupply.burned + event.params.amount
-  totalSupply.save()
-  totalSupply.id = day.toString()
-  totalSupply.save()
-}
 
 export function handleTransfer(event: Transfer): void {
   let day = (event.block.timestamp / BigInt.fromI32(60 * 60 * 24))
@@ -96,4 +60,19 @@ function newUser(id: string, address: string): User {
   user.balance = BigInt.fromI32(0)
   user.transactionCount = 0
   return user
+}
+
+export function handleBurn(event: Burn): void {
+  let entity = ExampleEntity.load(event.transaction.from.toHex())
+
+  if (entity == null) {
+    entity = new Burn(event.transaction.from.toHex())
+    entity.count = BigInt.fromI32(0)
+  }
+
+  entity.count = entity.count + BigInt.fromI32(1)
+  entity.burner = event.params.burner
+  entity.value = event.params.value
+
+  entity.save()
 }

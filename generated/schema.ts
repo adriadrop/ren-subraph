@@ -216,3 +216,61 @@ export class TotalSupply extends Entity {
     this.set("burned", Value.fromBigInt(value));
   }
 }
+
+export class Burn extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save Burn entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save Burn entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("Burn", id.toString(), this);
+  }
+
+  static load(id: string): Burn | null {
+    return store.get("Burn", id) as Burn | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get count(): BigInt {
+    let value = this.get("count");
+    return value.toBigInt();
+  }
+
+  set count(value: BigInt) {
+    this.set("count", Value.fromBigInt(value));
+  }
+
+  get burner(): Bytes {
+    let value = this.get("burner");
+    return value.toBytes();
+  }
+
+  set burner(value: Bytes) {
+    this.set("burner", Value.fromBytes(value));
+  }
+
+  get value(): BigInt {
+    let value = this.get("value");
+    return value.toBigInt();
+  }
+
+  set value(value: BigInt) {
+    this.set("value", Value.fromBigInt(value));
+  }
+}
