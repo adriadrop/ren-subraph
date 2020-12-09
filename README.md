@@ -12,7 +12,7 @@ A Graph Node can run multiple subgraphs, and in this case it can have a subgraph
 These subgraphs has three types of files which tell the Graph Node to ingest events from specific contracts. They are:
 * The subgraph manifest (subgraph.yaml)
 * A GraphQL schema      (schema.graphql)
-* Mapping scripts       (**Individual** - ACL.ts, constants.ts, EVMScriptRegistry.ts, Finance.ts, Kernel.ts, TokenManager.ts, Vault.ts, Voting.ts | **Network** - DAOFactory.ts, ENSResolverFIFS.ts)
+* Mapping scripts       (mapping.ts)
 
 This repository has these files created and ready to compile, so a user can start this subgraph on their own. The only thing that needs to be edited is the contract addresses in the `subgraph.yaml` file to change between Rinkeby or Mainnet. If you are indexing a different Individual-DAO-Subgraph, you will have to grab the contract addresses that are relevant to that subgraph. 
 
